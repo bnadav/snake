@@ -4,20 +4,21 @@ import { CellModel } from '../models/cell-model';
 @Injectable()
 export class GameService {
 
-  score: 0;
-  level: 1;
+  score: number;
+  level: number;
   game_over = false;
   pos: number;
   board: CellModel[];
 
-  new_game(level: 1) {
+  new_game(level=1) {
+    this.score = 0;
     this.level = level;
     this.pos = 50;
-    this.board = new Array[100];
+    this.board = new Array(100).fill(null).map(_ => new CellModel());
     this.board[this.pos].current = true;
 
     // put some bombs
-    for (let i=0; i <= level; i++) {
+    for (let i=0; i < level; i++) {
       this.board[Math.floor(Math.random()*100)]._has_bomb = true;
     }
 

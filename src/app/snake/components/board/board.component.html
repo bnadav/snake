@@ -1,0 +1,8 @@
+<h1>This is the board!! {{bl.level}} -- </h1>
+<div class="board">
+  <div *ngFor="let cell of bl.board"
+    [class.current]="cell.current"
+    [class.visited]="cell.visited"
+    [class.has_bomb]="cell.has_bomb"
+  ></div>
+</div>

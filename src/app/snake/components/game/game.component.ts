@@ -9,10 +9,12 @@ import { GameService } from '../../services/game.service';
 })
 export class GameComponent implements OnInit {
 
-  constructor(public bl:GameService) { }
+  constructor(public bl:GameService) { 
+    this.bl.new_game(2);
+  }
 
   ngOnInit() {
-    this.bl.new_game(1);
+    
   }
 
 }

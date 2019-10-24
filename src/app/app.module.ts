@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { GameComponent } from './snake/components/game/game.component';
+import { BoardComponent } from './snake/components/board/board.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent
+    GameComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule

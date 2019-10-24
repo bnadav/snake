@@ -1,0 +1,18 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  width: 500px;
+  height: 500px;
+
+  div {
+    border: 1px solid black;
+  }
+
+  div.current {
+    background-color: blue;
+  }
+
+  div.has_bomb {
+    background-color: yellow;
+  }
+}
