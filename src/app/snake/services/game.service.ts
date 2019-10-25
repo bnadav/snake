@@ -8,6 +8,7 @@ export class GameService {
   level: number;
   game_lost = false;
   game_won = false;
+  visited_count = 0
   pos: number;
   board: CellModel[];
 
@@ -77,6 +78,12 @@ export class GameService {
 
     if(this.board[new_pos].has_bomb) {
       this.game_lost = true;
+      return;
+    }
+
+    if(this.visited_count == (100 - this.level - 1)) {
+      this.game_won = true;
+      return;
     }
 
     this.board[this.pos].current = false;
