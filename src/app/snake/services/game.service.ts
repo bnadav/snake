@@ -6,7 +6,8 @@ export class GameService {
 
   score: number;
   level: number;
-  game_over = false;
+  game_lost = false;
+  game_won = false;
   pos: number;
   board: CellModel[];
 
@@ -24,63 +25,65 @@ export class GameService {
 
   }
 
+  // game end
+  get game_ended() {
+    return this.game_lost || this.game_won;
+  }
+  
   // navigation
   up() {
     const new_pos = this.pos - 10;
-
-    if(new_pos < 0 || this.board[new_pos].visited) {
-      return;
+   
+    if(new_pos >= 0) {
+      this.move(new_pos);
     }
-
-    if(this.board[new_pos].has_bomb) {
-      this.game_over = true;
-    }
-
-    this.pos = new_pos;
-    this.score++;
   }
 
   down() {
     const new_pos = this.pos + 10;
 
-    if(new_pos > 99 || this.board[new_pos].visited) {
-      return;
+    if(new_pos < 100) {
+      this.move(new_pos);
     }
 
-    if(this.board[new_pos].has_bomb) {
-      this.game_over = true;
-    }
-
-    this.pos = new_pos;
-    this.score++;
   }
 
   left() {
     const new_pos = this.pos -1;
-
-    if(new_pos %10 == 9 || this.board[new_pos].visited) {
-      return;
+   
+    if(new_pos %10 != 9) {
+      this.move(new_pos);
     }
 
-    if(this.board[new_pos].has_bomb) {
-      this.game_over = true;
-    }
-
-    this.pos = new_pos;
-    this.score++;
   }
 
   right() {
     const new_pos = this.pos + 1;
 
-    if(new_pos %10 == 0 || this.board[new_pos].visited) {
+    if(new_pos %10 != 0) {
+      this.move(new_pos);
+    }
+  }
+
+  move(new_pos: number) {
+
+    if(this.game_ended) {
+      return;
+    }
+
+    if(this.board[new_pos].visited) {
       return;
     }
 
     if(this.board[new_pos].has_bomb) {
-      this.game_over = true;    }
+      this.game_lost = true;
+    }
 
+    this.board[this.pos].current = false;
+    this.board[this.pos].visited = true;
+    this.board[new_pos].current = true;
     this.pos = new_pos;
     this.score++;
   }
+
 }
