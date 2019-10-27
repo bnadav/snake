@@ -1,6 +1,7 @@
 export class CellModel {
     _visited = false;
     _has_bomb = false;
+    _blast = false;
     _current = false;
 
     get current() {
@@ -25,5 +26,13 @@ export class CellModel {
 
     set has_bomb(bool) {
         this._has_bomb = bool;
+    }
+
+    get blast() {
+        return this._blast;
+    }
+
+    set blast(bool) {
+        this._blast = bool;
     }
 }

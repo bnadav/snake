@@ -17,6 +17,21 @@
   }
 
   div.has_bomb {
+    background-image: url("/assets/images/bomb.png");
+    background-size: cover;
     background-color: yellow;
+  }
+
+  div.blast {
+    background-image: url("/assets/images/blast.png");
+    background-size: cover;
+    background-color: lightcoral;
+    animation: blinker 1s linear infinite;
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
   }
 }

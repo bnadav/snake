@@ -1,7 +1,8 @@
 <div class="board">
   <div *ngFor="let cell of bl.board"
-    [class.current]="cell.current"
-    [class.visited]="cell.visited"
-    [class.has_bomb]="cell.has_bomb"
+    [class.current] = "cell.current"
+    [class.visited] = "cell.visited"
+    [class.has_bomb]= "cell.has_bomb"
+    [class.blast]   = "cell.blast"
   ></div>
 </div>

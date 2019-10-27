@@ -12,7 +12,7 @@ export class GameService {
   pos: number;
   board: CellModel[];
 
-  new_game(level=1) {
+  new_game(level = 1) {
     this.score = 0;
     this.level = level;
     this.pos = 50;
@@ -20,8 +20,8 @@ export class GameService {
     this.board[this.pos].current = true;
 
     // put some bombs
-    for (let i=0; i < level; i++) {
-      this.board[Math.floor(Math.random()*100)]._has_bomb = true;
+    for (let i = 0; i < level; i++) {
+      this.board[Math.floor(Math.random() * 100)]._has_bomb = true;
     }
 
   }
@@ -30,12 +30,12 @@ export class GameService {
   get game_ended() {
     return this.game_lost || this.game_won;
   }
-  
+
   // navigation
   up() {
     const new_pos = this.pos - 10;
-   
-    if(new_pos >= 0) {
+
+    if (new_pos >= 0) {
       this.move(new_pos);
     }
   }
@@ -43,16 +43,16 @@ export class GameService {
   down() {
     const new_pos = this.pos + 10;
 
-    if(new_pos < 100) {
+    if (new_pos < 100) {
       this.move(new_pos);
     }
 
   }
 
   left() {
-    const new_pos = this.pos -1;
-   
-    if(new_pos %10 != 9) {
+    const new_pos = this.pos - 1;
+
+    if (new_pos % 10 != 9) {
       this.move(new_pos);
     }
 
@@ -61,27 +61,32 @@ export class GameService {
   right() {
     const new_pos = this.pos + 1;
 
-    if(new_pos %10 != 0) {
+    if (new_pos % 10 != 0) {
       this.move(new_pos);
     }
   }
 
   move(new_pos: number) {
 
-    if(this.game_ended) {
+    if (this.game_ended) {
       return;
     }
-
-    if(this.board[new_pos].visited) {
-      return;
-    }
-
-    if(this.board[new_pos].has_bomb) {
+    
+    // Game lost if stepping on a visited cell
+    if (this.board[new_pos].visited) {
       this.game_lost = true;
       return;
     }
 
-    if(this.visited_count == (100 - this.level - 1)) {
+    // Game lost if steping on a bomb
+    if (this.board[new_pos].has_bomb) {
+      this.board[new_pos].blast = true;
+      this.game_lost = true;
+      return;
+    }
+
+    // Game won if all cells with no bomb and not current, have been visited
+    if (this.visited_count == (100 - this.level - 1)) {
       this.game_won = true;
       return;
     }
@@ -91,6 +96,7 @@ export class GameService {
     this.board[new_pos].current = true;
     this.pos = new_pos;
     this.score++;
+    this.visited_count++;
   }
 
 }
